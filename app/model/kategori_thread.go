@@ -11,3 +11,8 @@ type KategoriTherad struct {
 func (KategoriTherad) TableName() string {
 	return "kategori_therad"
 }
+
+type KategoriTheradResponse struct {
+	ID           uint   `json:"id"`
+	KategoriName string `json:"kategori_name"`
+}

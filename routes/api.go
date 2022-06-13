@@ -10,6 +10,10 @@ func New() *echo.Echo {
 
 	// application routes
 	e.GET("/", controllers.TestController)
-
+	// authentication
+	e.POST("/auth/register", controllers.RegisterController)
+	e.POST("/auth/login", controllers.LoginController)
+	e.GET("/auth/logout", controllers.LogoutController)
+	// create therad
 	return e
 }

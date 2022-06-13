@@ -9,7 +9,13 @@ import (
 	"gorm.io/gorm"
 )
 
+var (
+	DB *gorm.DB
+)
+
 func InitDB(conf config.Config) *gorm.DB {
+
+	var err error
 
 	connectionStr := fmt.Sprintf(
 		"%s:%s@tcp(%s:%s)/%s?charset=utf8&parseTime=True&loc=Local",
@@ -20,7 +26,7 @@ func InitDB(conf config.Config) *gorm.DB {
 		conf.DbName,
 	)
 
-	DB, err := gorm.Open(mysql.Open(connectionStr))
+	DB, err = gorm.Open(mysql.Open(connectionStr))
 
 	if err != nil {
 		fmt.Println("error when open connection ", err)
