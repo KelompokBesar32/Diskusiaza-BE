@@ -23,10 +23,16 @@ func CreateTokenUsers(user model.User) (string, error) {
 	return token.SignedString([]byte(constants.ScreetJwtForUser))
 }
 
-func DecodeTokenUsers(token string) (jwt.MapClaims, error) {
+func decodeTokenUsers(token string) (jwt.MapClaims, error) {
 	claims := jwt.MapClaims{}
 	_, err := jwt.ParseWithClaims(token, claims, func(token *jwt.Token) (interface{}, error) {
 		return []byte(""), nil
 	})
 	return claims, err
+}
+
+func GetDataFromToken(token string) map[string]interface{} {
+	claimsToken, _ := decodeTokenUsers(token)
+	dataFromToken := claimsToken["data"].(map[string]interface{})
+	return dataFromToken
 }

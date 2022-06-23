@@ -13,5 +13,6 @@ func main() {
 	database.InitDB(configs)
 	e := routes.New()
 	e.Static(constants.StaticFileUsersFoto, constants.DirFileUsersFoto)
+	e.Static(constants.StaticFileTherad, constants.DirFileTherad)
 	e.Logger.Fatal(e.Start(configs.ServerAddress))
 }

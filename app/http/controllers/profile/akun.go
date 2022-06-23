@@ -7,22 +7,17 @@ import (
 	"Diskusiaza-BE/constants"
 	"Diskusiaza-BE/library"
 	"github.com/labstack/echo/v4"
+	"golang.org/x/crypto/bcrypt"
 	"io"
 	"net/http"
 	"os"
 	"path/filepath"
 )
 
-func getDataFromToken(token string) map[string]interface{} {
-	claimsToken, _ := middleware.DecodeTokenUsers(token)
-	dataFromToken := claimsToken["data"].(map[string]interface{})
-	return dataFromToken
-}
-
 func GetUsersByToken(c echo.Context) error {
 	tokenHeader := c.Request().Header.Get("Authorization")
 	token := tokenHeader[len(constants.TokenJwtType):]
-	res := profile.GetDetailUser(int(getDataFromToken(token)["id"].(float64)))
+	res := profile.GetDetailUser(int(middleware.GetDataFromToken(token)["id"].(float64)))
 	return c.JSON(http.StatusOK, map[string]interface{}{
 		"data": res,
 	})
@@ -34,6 +29,7 @@ func UpdateUsersData(c echo.Context) error {
 	nohp := c.FormValue("nohp")
 	tglLahir := c.FormValue("tanggal_lahir")
 	jenisKelamin := c.FormValue("jenis_kelamin")
+	password := c.FormValue("password")
 	foto, _ := c.FormFile("foto")
 
 	tokenHeader := c.Request().Header.Get("Authorization")
@@ -51,8 +47,10 @@ func UpdateUsersData(c echo.Context) error {
 		dir, _ := os.Getwd()
 		locationFile := filepath.Join(dir, constants.DirFileUsersFoto, foto.Filename)
 		dst, _ := os.OpenFile(locationFile, os.O_WRONLY|os.O_CREATE, 06666)
-		defer dst.Close()
-		io.Copy(dst, src)
+		defer func(dst *os.File) {
+			_ = dst.Close()
+		}(dst)
+		_, _ = io.Copy(dst, src)
 
 		mUser := model.User{
 			Firstname:    firstName,
@@ -62,7 +60,7 @@ func UpdateUsersData(c echo.Context) error {
 			TanggalLahir: tglLahir,
 			JenisKelamin: jenisKelamin,
 		}
-		profile.UpdateUser(int(getDataFromToken(token)["id"].(float64)), mUser)
+		profile.UpdateUser(int(middleware.GetDataFromToken(token)["id"].(float64)), mUser)
 
 	} else {
 		mUser := model.User{
@@ -72,10 +70,19 @@ func UpdateUsersData(c echo.Context) error {
 			TanggalLahir: tglLahir,
 			JenisKelamin: jenisKelamin,
 		}
-		profile.UpdateUser(int(getDataFromToken(token)["id"].(float64)), mUser)
+		profile.UpdateUser(int(middleware.GetDataFromToken(token)["id"].(float64)), mUser)
 	}
 
-	res := profile.GetDetailUser(int(getDataFromToken(token)["id"].(float64)))
+	// if password != null
+	if len(password) != 0 {
+		passwordHash, _ := bcrypt.GenerateFromPassword([]byte(password), bcrypt.DefaultCost)
+		mUser := model.User{
+			Password: string(passwordHash),
+		}
+		profile.UpdateUser(int(middleware.GetDataFromToken(token)["id"].(float64)), mUser)
+	}
+
+	res := profile.GetDetailUser(int(middleware.GetDataFromToken(token)["id"].(float64)))
 
 	return c.JSON(http.StatusOK, map[string]interface{}{
 		"message": "Data users successfully updated",
