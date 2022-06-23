@@ -38,11 +38,34 @@ func New() *echo.Echo {
 	// update profile
 	withToken.PUT("/user/profile", profile.UpdateUsersData)
 
+	//---------------------------------------------
+	// USER CREATE THERAD NORMAL
+	//---------------------------------------------
+	// user create therad (question)
+	withToken.POST("/user/therad", therad.CreateTheradNormalController)
+	// get therad by user
+	withToken.GET("/user/therad", therad.GetListTheradNormalByUsersController)
+	// delete therad
+	withToken.DELETE("/user/therad/:therad_id", therad.DeleteTheradController)
+	// update therad
+	withToken.PUT("/user/therad/:therad_id", therad.UpdateTheradNormalController)
+
 	//-------------------------------------------
 	// THERAD GROUP
 	//--------------------------------------------
 	// get all kategori therad
 	withToken.GET("/therad/kategori", therad.GetKategoriTheradController)
+	// get all therad
+	withToken.GET("/therad", therad.GetAllTheradController)
+	// get by id therad
+	withToken.GET("/therad/:therad_id", therad.GetByIdTheradController)
 
+	//-----------------------
+	// LIKE THERAD
+	//----------------------
+	// like therad
+	withToken.POST("/therad/like", therad.LikeTheradController)
+	// unlike therad
+	withToken.DELETE("/therad/like", therad.UnLikeTheradController)
 	return e
 }
