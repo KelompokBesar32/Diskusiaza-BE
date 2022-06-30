@@ -58,6 +58,7 @@ func LoginController(c echo.Context) error {
 	})
 }
 
+
 func LogoutController(c echo.Context) error {
 	// invalidate token ??
 	tokenHeader := c.Request().Header.Get("Authorization")

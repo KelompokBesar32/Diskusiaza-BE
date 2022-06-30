@@ -3,6 +3,7 @@ package repository
 import (
 	"Diskusiaza-BE/app/model"
 	"Diskusiaza-BE/database"
+
 	"golang.org/x/crypto/bcrypt"
 )
 
@@ -37,6 +38,7 @@ func Login(user model.User) (model.User, bool) {
 	return mUsers, true
 }
 
+
 func UpdateToken(token string, userId uint) {
 	database.DB.Model(&model.User{}).Where("id = ?", userId).Update("token", token)
 }
@@ -51,5 +53,10 @@ func CheckTokenFromDB(token string) bool {
 }
 
 func RemoveToken(token string) {
+<<<<<<< Updated upstream
 	database.DB.Model(&model.User{}).Where("token = ?", token).Update("token", "")
 }
+=======
+	database.DB.Model(&model.User{}).Where("token", token).Update("token", "")
+}
+>>>>>>> Stashed changes
