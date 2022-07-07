@@ -5,15 +5,22 @@ import (
 	profile "Diskusiaza-BE/app/http/controllers/profile"
 	therad "Diskusiaza-BE/app/http/controllers/therad"
 	"Diskusiaza-BE/constants"
+	"net/http"
+
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 )
 
 func New() *echo.Echo {
 	e := echo.New()
-
+	e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
+		AllowOrigins:     []string{"https://diskusiaza.netlify.app"},
+		AllowMethods:     []string{http.MethodGet, http.MethodPost, http.MethodPut, http.MethodDelete, http.MethodOptions},
+		AllowCredentials: true,
+		MaxAge:           2592000,
+	}))
 	// application routes
-	e.GET("/", auth.TestController)
+	e.GET("/hello", auth.TestController)
 
 	//---------------------------------
 	// AUTH GROUP
