@@ -20,7 +20,7 @@ func New() *echo.Echo {
 		MaxAge:           2592000,
 	}))
 	// application routes
-	e.GET("/hello", auth.TestController)
+	e.GET("/", auth.TestController)
 
 	//---------------------------------
 	// AUTH GROUP
@@ -31,7 +31,7 @@ func New() *echo.Echo {
 	//--------------------------------
 	// WIDTH MIDDLEWARE
 	//--------------------------------
-	withToken := e.Group("")
+	withToken := e.Group("t")
 	withToken.Use(middleware.JWT([]byte(constants.ScreetJwtForUser)))
 	//------------------------------------------------------
 	// logout
