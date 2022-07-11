@@ -14,7 +14,7 @@ import (
 func New() *echo.Echo {
 	e := echo.New()
 	e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
-		AllowOrigins:     []string{"https://diskusiaza.netlify.app"},
+		AllowOrigins:     []string{"https://diskusiaza.netlify.app", "*", "http://localhost:3000"},
 		AllowMethods:     []string{http.MethodGet, http.MethodPost, http.MethodPut, http.MethodDelete, http.MethodOptions},
 		AllowCredentials: true,
 		MaxAge:           2592000,
