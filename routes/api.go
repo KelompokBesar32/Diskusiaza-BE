@@ -5,13 +5,20 @@ import (
 	profile "Diskusiaza-BE/app/http/controllers/profile"
 	therad "Diskusiaza-BE/app/http/controllers/therad"
 	"Diskusiaza-BE/constants"
+	"net/http"
+
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 )
 
 func New() *echo.Echo {
 	e := echo.New()
-
+	e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
+		AllowOrigins:     []string{"https://diskusiaza.netlify.app"},
+		AllowMethods:     []string{http.MethodGet, http.MethodPost, http.MethodPut, http.MethodDelete, http.MethodOptions},
+		AllowCredentials: true,
+		MaxAge:           2592000,
+	}))
 	// application routes
 	e.GET("/", auth.TestController)
 
@@ -24,7 +31,7 @@ func New() *echo.Echo {
 	//--------------------------------
 	// WIDTH MIDDLEWARE
 	//--------------------------------
-	withToken := e.Group("")
+	withToken := e.Group("t")
 	withToken.Use(middleware.JWT([]byte(constants.ScreetJwtForUser)))
 	//------------------------------------------------------
 	// logout
