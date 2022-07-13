@@ -80,6 +80,15 @@ func EditRuangController(c echo.Context) error {
 func deleteRuangController(c echo.Context) error {
 	ruang := model.Ruang{}
 	_ = c.Bind(&ruang)
+	TokenHeader := c.Request().Header.Get("Authorization")
+	Token := TokenHeader[len(constants.TokenJwtType):]
+	user := middleware.GetDataFromToken(Token)
+	userID := int(user["id"].(float64))
+	if userID != ruang.UserID {
+		return c.JSON(http.StatusBadRequest, map[string]interface{}{
+			"message": "anda tidak punya akses",
+		})
+	}
 
 	database.DB.Delete(&ruang)
 

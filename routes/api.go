@@ -3,6 +3,7 @@ package routes
 import (
 	auth "Diskusiaza-BE/app/http/controllers"
 	profile "Diskusiaza-BE/app/http/controllers/profile"
+	ruang "Diskusiaza-BE/app/http/controllers/ruang"
 	therad "Diskusiaza-BE/app/http/controllers/therad"
 	"Diskusiaza-BE/constants"
 	"net/http"
@@ -68,11 +69,15 @@ func New() *echo.Echo {
 	withToken.GET("/therad/:therad_id", therad.GetByIdTheradController)
 
 	//-----------------------
-	// LIKE THERAD
+	// ruang
 	//----------------------
-	// like therad
-	withToken.POST("/therad/like", therad.LikeTheradController)
-	// unlike therad
-	withToken.DELETE("/therad/like", therad.UnLikeTheradController)
+	// Create Ruang
+	withToken.POST("/user/ruang", ruang.CreateRuangController)
+	// Delete Ruang
+	withToken.DELETE("/user/ruang", ruang.DeleteRuangController)
+	// Update Ruang
+	withToken.POST("/user/ruang", ruang.EditRuangController)
+	// get Ruang
+	withToken.GET("/user/ruang", ruang.GetRuangController)
 	return e
 }
