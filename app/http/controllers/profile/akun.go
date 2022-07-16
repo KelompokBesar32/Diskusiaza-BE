@@ -14,7 +14,7 @@ import (
 	"path/filepath"
 )
 
-func GetUsersByToken(c echo.Context) error {
+func GetUsersByTokenController(c echo.Context) error {
 	tokenHeader := c.Request().Header.Get("Authorization")
 	token := tokenHeader[len(constants.TokenJwtType):]
 	res := profile.GetDetailUser(int(middleware.GetDataFromToken(token)["id"].(float64)))
@@ -23,7 +23,7 @@ func GetUsersByToken(c echo.Context) error {
 	})
 }
 
-func UpdateUsersData(c echo.Context) error {
+func UpdateUsersDataController(c echo.Context) error {
 	firstName := c.FormValue("firstname")
 	lastName := c.FormValue("lastname")
 	nohp := c.FormValue("nohp")

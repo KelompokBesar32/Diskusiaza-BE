@@ -23,12 +23,15 @@ func (User) TableName() string {
 }
 
 type UserResponse struct {
-	Firstname    string `json:"firstname"`
-	Lastname     string `json:"lastname"`
-	Email        string `json:"email"`
-	Nohp         string `json:"nohp"`
-	Foto         string `json:"foto"`
-	TanggalLahir string `json:"tanggal_lahir"`
-	JenisKelamin string `json:"jenis_kelamin"`
-	RoleName     string `json:"role_name"`
+	ID                 int    `json:"id"`
+	Firstname          string `json:"firstname"`
+	Lastname           string `json:"lastname"`
+	Email              string `json:"email"`
+	Nohp               string `json:"nohp"`
+	Foto               string `json:"foto"`
+	TanggalLahir       string `json:"tanggal_lahir"`
+	JenisKelamin       string `json:"jenis_kelamin"`
+	TotalFollowers     int    `json:"total_followers"`
+	TotalFollowed      int    `json:"total_followed"`
+	TotalTheradCreated int    `json:"total_therad_created"`
 }

@@ -5,6 +5,7 @@ import (
 	"Diskusiaza-BE/app/model"
 	"Diskusiaza-BE/app/repository/therad"
 	"Diskusiaza-BE/constants"
+	"fmt"
 	"github.com/labstack/echo/v4"
 	"io"
 	"net/http"
@@ -19,6 +20,20 @@ func GetListTheradNormalByUsersController(c echo.Context) error {
 	tokenHeader := c.Request().Header.Get("Authorization")
 	token := tokenHeader[len(constants.TokenJwtType):]
 	res := therad.GetListTheradByUserId(int(middleware.GetDataFromToken(token)["id"].(float64)))
+	return c.JSON(http.StatusOK, map[string]interface{}{
+		"data": res,
+	})
+}
+
+func GetListTheradNormalByUsersIdController(c echo.Context) error {
+	id, err := strconv.Atoi(c.Param("user_id"))
+	if err != nil {
+		fmt.Println(err)
+		return c.JSON(http.StatusBadRequest, map[string]interface{}{
+			"message": "invalid parameters user_id",
+		})
+	}
+	res := therad.GetListTheradByUserId(id)
 	return c.JSON(http.StatusOK, map[string]interface{}{
 		"data": res,
 	})
