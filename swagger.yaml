@@ -1,0 +1,1242 @@
+swagger: '2.0'
+info:
+  version: '1.0'
+  title: Capstone-Golang-Deploy-Final
+  description: KELOMPOK 32 CAPSTONE PROJECT GOLANG ALTERRA KAMPUS MERDEKA BATCH 2
+  contact: {}
+host: capstone-go.dikatest.xyz
+basePath: /
+securityDefinitions: {}
+schemes:
+- https
+consumes:
+- application/json
+produces:
+- application/json
+paths:
+  /auth/login:
+    post:
+      description: End point yang digunakan untuk melakukan proses login
+      summary: Login
+      tags:
+      - Authentification
+      operationId: Login
+      deprecated: false
+      produces:
+      - application/json
+      parameters:
+      - name: Authorization
+        in: header
+        required: false
+        default: Bearer {token}
+        type: string
+      - name: Body
+        in: body
+        required: true
+        description: ''
+        schema:
+          $ref: '#/definitions/LoginRequest'
+      responses:
+        '200':
+          description: ''
+          headers: {}
+  /auth/register:
+    post:
+      description: "StartFragment\n\nEnd point yang digunakan untuk melakukan proses register\n\n  \n\nEnd"
+      summary: Register
+      tags:
+      - Authentification
+      operationId: Register
+      deprecated: false
+      produces:
+      - application/json
+      parameters:
+      - name: Authorization
+        in: header
+        required: false
+        default: Bearer {token}
+        type: string
+      - name: Body
+        in: body
+        required: true
+        description: ''
+        schema:
+          $ref: '#/definitions/RegisterRequest'
+      responses:
+        '200':
+          description: ''
+          headers: {}
+  /t/auth/logout:
+    get:
+      description: Endpoin yang digunakan untuk melakukan proses logout
+      summary: Logout
+      tags:
+      - Authentification
+      operationId: Logout
+      deprecated: false
+      produces:
+      - application/json
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      security: []
+  /t/user/profile:
+    get:
+      description: Endpoint yang digunakan untuk mendapatkan data detail profile yang tadi telah login
+      summary: GetDataProfile
+      tags:
+      - Profile
+      operationId: GetDataProfile
+      deprecated: false
+      produces:
+      - application/json
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      security: []
+    put:
+      description: Endpoint update data profile user
+      summary: UpdateProfile
+      tags:
+      - Profile
+      operationId: UpdateProfile
+      deprecated: false
+      produces:
+      - application/json
+      consumes:
+      - application/x-www-form-urlencoded
+      parameters:
+      - name: firstname
+        in: formData
+        required: true
+        type: string
+        description: required from front end
+      - name: lastname
+        in: formData
+        required: true
+        type: string
+        description: required from frond end
+      - name: nohp
+        in: formData
+        required: true
+        type: string
+        description: required from front end
+      - name: foto
+        in: formData
+        required: true
+        type: string
+        description: optional form
+      - name: tanggal_lahir
+        in: formData
+        required: true
+        type: string
+        description: required from frond end
+      - name: jenis_kelamin
+        in: formData
+        required: true
+        type: string
+        description: required from frond end
+      - name: password
+        in: formData
+        required: true
+        type: integer
+        format: int32
+        description: optional from
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      security: []
+  /t/user/therad:
+    post:
+      description: endpoint ini digunakan untuk **membuat therad diluar ruang**
+      summary: CreateTheradNotInRuang
+      tags:
+      - Therad
+      operationId: CreateTheradNotInRuang
+      deprecated: false
+      produces:
+      - application/json
+      consumes:
+      - application/x-www-form-urlencoded
+      parameters:
+      - name: judul
+        in: formData
+        required: true
+        type: string
+        description: required from front end
+      - name: isi
+        in: formData
+        required: true
+        type: string
+        description: required from front end
+      - name: file
+        in: formData
+        required: true
+        type: string
+        description: optional form (only 1 file)
+      - name: kategori_therad_id
+        in: formData
+        required: true
+        type: integer
+        format: int32
+        description: required from front end
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      security: []
+    get:
+      description: endpoint ini digunakan untuk mendapatkan data therad yang dibuat oleh satu user berdasarkan token
+      summary: GetTheradByUser
+      tags:
+      - Therad
+      operationId: GetTheradByUser
+      deprecated: false
+      produces:
+      - application/json
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      security: []
+  /t/user/therad/43:
+    put:
+      description: >-
+        endpoint yang digunakan untuk mengupdate therad data dengan url parameter sbb:
+
+
+        ``` go
+
+        /user/therad/:therad_id
+
+        ```
+      summary: UpdateTherad
+      tags:
+      - Therad
+      operationId: UpdateTherad
+      deprecated: false
+      produces:
+      - application/json
+      consumes:
+      - application/x-www-form-urlencoded
+      parameters:
+      - name: judul
+        in: formData
+        required: true
+        type: string
+        description: required from front end
+      - name: isi
+        in: formData
+        required: true
+        type: string
+        description: required from front end
+      - name: file
+        in: formData
+        required: true
+        type: string
+        description: optional form (only 1 file)
+      - name: kategori_therad_id
+        in: formData
+        required: true
+        type: integer
+        format: int32
+        description: required from front end
+      - name: status
+        in: formData
+        required: true
+        type: string
+        description: value is (active or not_active) required from front end
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      security: []
+    delete:
+      description: >-
+        endpoin yang digunakan untuk menghapus therad berdasarkan therad id, dengan url parameter sbb :
+
+
+        ``` go
+
+        /user/therad/:therad_id
+
+        ```
+      summary: DeleteTherad
+      tags:
+      - Therad
+      operationId: DeleteTherad
+      deprecated: false
+      produces:
+      - application/json
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      security: []
+  /t/user/therad/ruang:
+    post:
+      description: end point yang digunakan untuk membuat therad didalam suatu ruang diskusi
+      summary: CreateTheradInRuang
+      tags:
+      - Therad
+      operationId: CreateTheradInRuang
+      deprecated: false
+      produces:
+      - application/json
+      consumes:
+      - application/x-www-form-urlencoded
+      parameters:
+      - name: judul
+        in: formData
+        required: true
+        type: string
+        description: required from front end
+      - name: isi
+        in: formData
+        required: true
+        type: string
+        description: required from front end
+      - name: file
+        in: formData
+        required: true
+        type: string
+        description: optional
+      - name: kategori_therad_id
+        in: formData
+        required: true
+        type: integer
+        format: int32
+        description: required from front end
+      - name: ruang_id
+        in: formData
+        required: true
+        type: integer
+        format: int32
+        description: required from front end
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      security: []
+  /t/therad/kategori:
+    get:
+      description: mendapatkan semua data kategori therad
+      summary: GetTheradCategory
+      tags:
+      - Therad
+      operationId: GetTheradCategory
+      deprecated: false
+      produces:
+      - application/json
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      security: []
+  /t/therad:
+    get:
+      description: mendapatkan data seluruh therad
+      summary: GetAllTherad
+      tags:
+      - Therad
+      operationId: GetAllTherad
+      deprecated: false
+      produces:
+      - application/json
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      security: []
+  /t/therad/1:
+    get:
+      description: >-
+        mendapatkan detail therad by therad id, dengan url parameter sbb:
+
+
+        ``` go
+
+        /therad/:therad_id
+
+
+        ```
+      summary: GetTheradById
+      tags:
+      - Therad
+      operationId: GetTheradById
+      deprecated: false
+      produces:
+      - application/json
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      security: []
+  /t/therad/user/7:
+    get:
+      description: >-
+        mendapatkan detail seluruh therad yang dibuat oleh user tertentu, mempunyai url param sbb:
+
+
+        ``` go
+
+        /therad/user/:user_id
+
+        ```
+      summary: GetTheradByUserId
+      tags:
+      - Therad
+      operationId: GetTheradByUserId
+      deprecated: false
+      produces:
+      - application/json
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      security: []
+  /t/therad/search:
+    get:
+      description: search therad dengan url query parameter **key**
+      summary: SearchTherad
+      tags:
+      - Therad
+      operationId: SearchTherad
+      deprecated: false
+      produces:
+      - application/json
+      parameters:
+      - name: key
+        in: query
+        required: true
+        type: string
+        description: ''
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      security: []
+  /t/therad/kategori/1:
+    get:
+      description: >-
+        mendapatkan detail list therad berdasarkan kategori_id dengan url param sebagai berikut
+
+
+        ``` go
+
+        /therad/kategori/:kategori_id
+
+        ```
+      summary: GetTheradByKategori
+      tags:
+      - Therad
+      operationId: GetTheradByKategori
+      deprecated: false
+      produces:
+      - application/json
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      security: []
+  /t/therad/trending:
+    get:
+      description: mendapatkan list therad yang lagi trending
+      summary: GetTrendingTherad
+      tags:
+      - Therad
+      operationId: GetTrendingTherad
+      deprecated: false
+      produces:
+      - application/json
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      security: []
+  /t/ruang/therad/2:
+    get:
+      description: >-
+        mendapatkan detail therad didalam ruang diskusi tertentu, dengan url_params ruang_id yakni, sbb :
+
+
+        ``` go
+
+        /ruang/therad/:ruang_id
+
+        ```
+      summary: GetAllTheradInRuang
+      tags:
+      - Therad
+      operationId: GetAllTheradInRuang
+      deprecated: false
+      produces:
+      - application/json
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      security: []
+  /t/therad/like:
+    post:
+      description: endpoint yang digunakan untuk melakukan proses like pada suatu therad
+      summary: LikeTherad
+      tags:
+      - LikeTherad
+      operationId: LikeTherad
+      deprecated: false
+      produces:
+      - application/json
+      parameters:
+      - name: Body
+        in: body
+        required: true
+        description: ''
+        schema:
+          $ref: '#/definitions/LikeTheradRequest'
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      security: []
+    delete:
+      description: endpoint yang digunakan untuk mendislike suatu therad, yang telah di like sebelumnya
+      summary: UnLikeTherad
+      tags:
+      - LikeTherad
+      operationId: UnLikeTherad
+      deprecated: false
+      produces:
+      - application/json
+      parameters:
+      - name: Body
+        in: body
+        required: true
+        description: ''
+        schema:
+          $ref: '#/definitions/UnLikeTheradRequest'
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      security: []
+  /t/user:
+    get:
+      description: endpoint yang digunakan untuk mendapatkan list seluruh user
+      summary: GetAllUsers
+      tags:
+      - Users
+      operationId: GetAllUsers
+      deprecated: false
+      produces:
+      - application/json
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      security: []
+  /t/user/search/274:
+    get:
+      description: >-
+        mendapatkan detail user berdasarkan user_id, dengan url params sbb :
+
+
+        ``` go
+
+        /user/search/:user_id
+
+        ```
+      summary: GetUserDetailByUserId
+      tags:
+      - Users
+      operationId: GetUserDetailByUserId
+      deprecated: false
+      produces:
+      - application/json
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      security: []
+  /t/user/search:
+    get:
+      description: pencarian user berdasarkan key tertentu
+      summary: SearchUsersByName
+      tags:
+      - Users
+      operationId: SearchUsersByName
+      deprecated: false
+      produces:
+      - application/json
+      parameters:
+      - name: key
+        in: query
+        required: true
+        type: string
+        description: key is value of firstname or lastname user
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      security: []
+  /t/user/followers:
+    get:
+      description: mendapatkan detail list followers yang mengikuti saya
+      summary: GetFollowersDetail
+      tags:
+      - Users
+      operationId: GetFollowersDetail
+      deprecated: false
+      produces:
+      - application/json
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      security: []
+  /t/user/followed:
+    get:
+      description: mendapatkan detail akun yang sedang kamu ikuti
+      summary: GetFollowingDetail
+      tags:
+      - Users
+      operationId: GetFollowingDetail
+      deprecated: false
+      produces:
+      - application/json
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      security: []
+  /t/follow:
+    post:
+      description: proses mengikuti akun seseorang, isi variabel followed_id dengan user_id yang mau di ikuti
+      summary: FollowingUsers
+      tags:
+      - Follow
+      operationId: FollowingUsers
+      deprecated: false
+      produces:
+      - application/json
+      parameters:
+      - name: Body
+        in: body
+        required: true
+        description: ''
+        schema:
+          example: "{\r\n    \"followed_id\": 83 \r\n}\r\n\r\n// followed_id is user_id which will be followed"
+          type: string
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      security: []
+    delete:
+      description: endpoint yang digunakan untuk mengunfollow seseorang yang telah kamu ikuti variabel followed_id adalah variabel user_id yang mau di unfollow
+      summary: UnfollowUsers
+      tags:
+      - Follow
+      operationId: UnfollowUsers
+      deprecated: false
+      produces:
+      - application/json
+      parameters:
+      - name: Body
+        in: body
+        required: true
+        description: ''
+        schema:
+          example: >-
+            {
+
+                "followed_id": 8
+
+            }
+
+
+
+            // followed_id is user_id which will be unfollow
+          type: string
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      security: []
+  /t/followers:
+    delete:
+      description: endpoint yang digunakan untuk menghapus followersmu. dengan variabel followers_id ialah user_id
+      summary: RemoveFollowers
+      tags:
+      - Follow
+      operationId: RemoveFollowers
+      deprecated: false
+      produces:
+      - application/json
+      parameters:
+      - name: Body
+        in: body
+        required: true
+        description: ''
+        schema:
+          example: "{\r\n    \"followers_id\": 8\r\n}   \r\n\r\n// followers_id is user_id which remove from your followers detail\r\n"
+          type: string
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      security: []
+  /t/ruang/join:
+    post:
+      description: endpoint untuk mendaftarkan user yang ingin join kedalam ruang diskusi yang dibuat orang lain
+      summary: JoinRuang
+      tags:
+      - Member
+      operationId: JoinRuang
+      deprecated: false
+      produces:
+      - application/json
+      parameters:
+      - name: Body
+        in: body
+        required: true
+        description: ''
+        schema:
+          $ref: '#/definitions/JoinRuangRequest'
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      security: []
+  /t/ruang/member/3:
+    get:
+      description: >-
+        mendapatkan list detail seluruh member dalam suatu ruang diskusi. dengan url params ruang_id, sbb:
+
+
+        ``` go
+
+        /ruang/member/:ruang_id
+
+        ```
+      summary: GetAllMemberInRuang
+      tags:
+      - Member
+      operationId: GetAllMemberInRuang
+      deprecated: false
+      produces:
+      - application/json
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      security: []
+  /t/ruang/leave/1:
+    delete:
+      description: >-
+        endpoint user ketika ingin keluar dari ruang diskusi yang telah diikuti sebelumnya, dengan url_params ruang_id
+
+
+        ``` go
+
+        /ruang/leave/:ruang_id
+
+        ```
+      summary: LeaveFromRuang
+      tags:
+      - Member
+      operationId: LeaveFromRuang
+      deprecated: false
+      produces:
+      - application/json
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      security: []
+  /t/ruang:
+    post:
+      description: endpoint untuk membuat sebuah ruang diskusi
+      summary: CreateRuang
+      tags:
+      - Ruang
+      operationId: CreateRuang
+      deprecated: false
+      produces:
+      - application/json
+      parameters:
+      - name: Body
+        in: body
+        required: true
+        description: ''
+        schema:
+          $ref: '#/definitions/CreateRuangRequest'
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      security: []
+    get:
+      description: endpoint yang digunakan untuk membuat seluruh ruang yang dibuat semua user
+      summary: GetAllRuang
+      tags:
+      - Ruang
+      operationId: GetAllRuang
+      deprecated: false
+      produces:
+      - application/json
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      security: []
+  /t/ruang/user:
+    get:
+      description: menampilkan list ruang yang anda buat sendiri (get list ruang yang anda buat sendiri) atau kamu author ruang tersebut
+      summary: GetAllRuangCreatedByUserId
+      tags:
+      - Ruang
+      operationId: GetAllRuangCreatedByUserId
+      deprecated: false
+      produces:
+      - application/json
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      security: []
+  /t/ruang/1:
+    delete:
+      description: >-
+        endpoint yang digunakan untuk menghapus ruang diskusi berdasarkan ruang_id, dengan url params nya ialah:
+
+
+        ``` go
+
+        /ruang/:ruang_id
+
+        ```
+      summary: DeleteRuang
+      tags:
+      - Ruang
+      operationId: DeleteRuang
+      deprecated: false
+      produces:
+      - application/json
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      security: []
+  /t/ruang/2:
+    put:
+      description: >-
+        endpoint yang digunakan untuk update ruang dengan url params ruang_id, sbb:
+
+
+        ``` go
+
+        /ruang/:ruang_id
+
+        ```
+      summary: UpdateRuang
+      tags:
+      - Ruang
+      operationId: UpdateRuang
+      deprecated: false
+      produces:
+      - application/json
+      parameters:
+      - name: Body
+        in: body
+        required: true
+        description: ''
+        schema:
+          $ref: '#/definitions/UpdateRuangRequest'
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      security: []
+  /t/ruang/detail/2:
+    get:
+      description: >-
+        mendapatkan detail ruang berdasarkan ruang_id dengan url params nya ialah sbb:
+
+
+        ``` go
+
+        /ruang/detail/:ruang_id
+
+        ```
+      summary: GetRuangByIdRuang
+      tags:
+      - Ruang
+      operationId: GetRuangByIdRuang
+      deprecated: false
+      produces:
+      - application/json
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      security: []
+  /t/ruang/search:
+    get:
+      description: pencarian data seluruh ruang dengan query parameter **key**
+      summary: SearchRuangByName
+      tags:
+      - Ruang
+      operationId: SearchRuangByName
+      deprecated: false
+      produces:
+      - application/json
+      parameters:
+      - name: key
+        in: query
+        required: true
+        type: string
+        description: ''
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      security: []
+  /t/ruang/followed:
+    get:
+      description: mendapatkan ruang yang diikuti oleh users
+      summary: GetRuangFollowedByUserId
+      tags:
+      - Ruang
+      operationId: GetRuangFollowedByUserId
+      deprecated: false
+      produces:
+      - application/json
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      security: []
+  /t/reply/comment:
+    post:
+      description: me reply suatu komen. berdasarkan comment_id
+      summary: CreateReplyComment
+      tags:
+      - ReplyComment
+      operationId: CreateReplyComment
+      deprecated: false
+      produces:
+      - application/json
+      consumes:
+      - application/x-www-form-urlencoded
+      parameters:
+      - name: isi
+        in: formData
+        required: true
+        type: string
+        description: ''
+      - name: file
+        in: formData
+        required: true
+        type: string
+        description: ''
+      - name: comment_id
+        in: formData
+        required: true
+        type: integer
+        format: int32
+        description: ''
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      security: []
+  /t/comment:
+    post:
+      summary: CreateComment
+      tags:
+      - Comment
+      operationId: CreateComment
+      deprecated: false
+      produces:
+      - application/json
+      consumes:
+      - application/x-www-form-urlencoded
+      parameters:
+      - name: isi
+        in: formData
+        required: true
+        type: string
+        description: required (isi komentar)
+      - name: file
+        in: formData
+        required: true
+        type: string
+        description: optional (lampiran file ketika berkomentar)
+      - name: therad_id
+        in: formData
+        required: true
+        type: integer
+        format: int32
+        description: required
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      security: []
+  /t/comment/1:
+    put:
+      description: >-
+        update komen dengan url params comment_id, sbb :
+
+
+        ``` go
+
+        /comment/:comment_id
+
+        ```
+      summary: UpdateComment
+      tags:
+      - Comment
+      operationId: UpdateComment
+      deprecated: false
+      produces:
+      - application/json
+      consumes:
+      - application/x-www-form-urlencoded
+      parameters:
+      - name: isi
+        in: formData
+        required: true
+        type: string
+        description: required (isi komentar)
+      - name: file
+        in: formData
+        required: true
+        type: string
+        description: optional (lampiran file ketika berkomentar)
+      - name: therad_id
+        in: formData
+        required: true
+        type: integer
+        format: int32
+        description: required
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      security: []
+    delete:
+      description: >-
+        endpoint delete comment dengan url params comment_id sbb :
+
+
+        ``` go
+
+        /comment/:comment_id
+
+        ```
+      summary: DeleteComment
+      tags:
+      - Comment
+      operationId: DeleteComment
+      deprecated: false
+      produces:
+      - application/json
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      security: []
+  /t/comment/therad/45:
+    get:
+      description: >-
+        mendapatkan list daftar komentar berdasarkan therad_id dengan url params sbb :
+
+
+        ``` go
+
+        /comment/therad/:therad_id
+
+        ```
+      summary: GetCommentByTherad
+      tags:
+      - Comment
+      operationId: GetCommentByTherad
+      deprecated: false
+      produces:
+      - application/json
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      security: []
+  /t/comment/2:
+    get:
+      description: >-
+        mendapatkan detail comment berdasarkan id comment dengan url params sbb :
+
+
+        ``` go
+
+        /comment/:comment_id
+
+        ```
+      summary: GetCommentByIdComment
+      tags:
+      - Comment
+      operationId: GetCommentByIdComment
+      deprecated: false
+      produces:
+      - application/json
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      security: []
+definitions:
+  LoginRequest:
+    title: LoginRequest
+    example:
+      email: ardhika@gmail.com
+      password: '123'
+    type: object
+    properties:
+      email:
+        type: string
+      password:
+        type: string
+    required:
+    - email
+    - password
+  RegisterRequest:
+    title: RegisterRequest
+    example:
+      firstname: Ardhika
+      lastname: Yoviyanto
+      email: ardhika@gmail.com
+      password: '123'
+      tanggal_lahir: 2001-12-01
+      jenis_kelamin: L
+    type: object
+    properties:
+      firstname:
+        type: string
+      lastname:
+        type: string
+      email:
+        type: string
+      password:
+        type: string
+      tanggal_lahir:
+        type: string
+      jenis_kelamin:
+        type: string
+    required:
+    - firstname
+    - lastname
+    - email
+    - password
+    - tanggal_lahir
+    - jenis_kelamin
+  LikeTheradRequest:
+    title: LikeTheradRequest
+    example:
+      therad_id: 44
+    type: object
+    properties:
+      therad_id:
+        type: integer
+        format: int32
+    required:
+    - therad_id
+  UnLikeTheradRequest:
+    title: UnLikeTheradRequest
+    example:
+      therad_id: 44
+    type: object
+    properties:
+      therad_id:
+        type: integer
+        format: int32
+    required:
+    - therad_id
+  JoinRuangRequest:
+    title: JoinRuangRequest
+    example:
+      ruang_id: 2
+    type: object
+    properties:
+      ruang_id:
+        type: integer
+        format: int32
+    required:
+    - ruang_id
+  CreateRuangRequest:
+    title: CreateRuangRequest
+    example:
+      judul: Ruang Diskuzi Forum Dota2
+      deskripsi: Ruang untuk diskusi masalah game dota
+    type: object
+    properties:
+      judul:
+        type: string
+      deskripsi:
+        type: string
+    required:
+    - judul
+    - deskripsi
+  UpdateRuangRequest:
+    title: UpdateRuangRequest
+    example:
+      judul: Ruang Diskuzi Programming golang
+      deskripsi: Ruang untuk diskusi masalah programming golang
+    type: object
+    properties:
+      judul:
+        type: string
+      deskripsi:
+        type: string
+    required:
+    - judul
+    - deskripsi
+security: []
+tags:
+- name: Authentification
+- name: Profile
+- name: Therad
+- name: LikeTherad
+- name: Users
+- name: Follow
+- name: Member
+- name: Ruang
+- name: ReplyComment
+- name: Comment
