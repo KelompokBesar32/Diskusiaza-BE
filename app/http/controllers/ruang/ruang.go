@@ -120,3 +120,14 @@ func GetSearchRuangController(c echo.Context) error {
 		"key":  key,
 	})
 }
+
+func GetRuangFollowedByUserIdController(c echo.Context) error {
+	tokenHeader := c.Request().Header.Get("Authorization")
+	token := tokenHeader[len(constants.TokenJwtType):]
+	userId := int(middleware.GetDataFromToken(token)["id"].(float64))
+
+	res := ruang.GetRuangFollowedByUserId(userId)
+	return c.JSON(http.StatusOK, map[string]interface{}{
+		"data": res,
+	})
+}

@@ -14,5 +14,6 @@ func main() {
 	e := routes.New()
 	e.Static(constants.StaticFileUsersFoto, constants.DirFileUsersFoto)
 	e.Static(constants.StaticFileTherad, constants.DirFileTherad)
+	e.Static(constants.StaticFileComment, constants.DirFileComment)
 	e.Logger.Fatal(e.Start(configs.ServerAddress))
 }

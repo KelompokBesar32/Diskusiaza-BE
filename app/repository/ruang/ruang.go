@@ -58,6 +58,14 @@ func GetRuangByUserId(userId int) []model.RuangResponse {
 	return repairRuangResponse(mRuang)
 }
 
+func GetRuangFollowedByUserId(userId int) []model.RuangResponse {
+	var mRuang []model.RuangResponse
+	database.DB.Model(&model.Ruang{}).Select("*").
+		Joins("inner join member_ruang ON member_ruang.ruang_id = ruang.id").
+		Where("member_ruang.user_id", userId).Scan(&mRuang)
+	return repairRuangResponse(mRuang)
+}
+
 func GetRuangById(ruangId int) model.RuangResponse {
 	var mRuang model.RuangResponse
 	database.DB.Model(&model.Ruang{}).Where("id", ruangId).Scan(&mRuang)

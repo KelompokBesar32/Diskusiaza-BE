@@ -2,6 +2,7 @@ package routes
 
 import (
 	auth "Diskusiaza-BE/app/http/controllers"
+	"Diskusiaza-BE/app/http/controllers/comment"
 	"Diskusiaza-BE/app/http/controllers/follow"
 	profile "Diskusiaza-BE/app/http/controllers/profile"
 	ruang "Diskusiaza-BE/app/http/controllers/ruang"
@@ -128,6 +129,8 @@ func New() *echo.Echo {
 	withToken.GET("/ruang/member/:ruang_id", ruang.GetAllMemberInRuangController)
 	// get all therad in ruang
 	withToken.GET("/ruang/therad/:ruang_id", therad.GetAllTheradInRuangController)
+	// get ruang joined
+	withToken.GET("/ruang/followed", ruang.GetRuangFollowedByUserIdController)
 
 	//------------------------
 	// USER JOIN TO RUANG
@@ -136,6 +139,26 @@ func New() *echo.Echo {
 	withToken.POST("/ruang/join", ruang.CreateMemberRuangController)
 	// leave from ruang
 	withToken.DELETE("/ruang/leave/:ruang_id", ruang.DeleteMemberRuangController)
+
+	//------------------------
+	// COMMENT MANAGEMENT
+	//-----------------------
+	// create comment
+	withToken.POST("/comment", comment.CreateCommentController)
+	// update comment
+	withToken.PUT("/comment/:comment_id", comment.UpdateCommentController)
+	// delete comment
+	withToken.DELETE("/comment/:comment_id", comment.DeleteCommentController)
+	// get comment by therad
+	withToken.GET("/comment/therad/:therad_id", comment.GetCommentByTheradIdController)
+	// get comment by id
+	withToken.GET("/comment/:comment_id", comment.GetCommentByIdController)
+
+	//-----------------------
+	// REPLY COMMENT
+	//----------------------
+	// reply comment
+	withToken.POST("/reply/comment", comment.CreateReplyCommentController)
 
 	return e
 }

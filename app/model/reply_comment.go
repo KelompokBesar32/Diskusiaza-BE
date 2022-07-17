@@ -16,3 +16,10 @@ type ReplyComment struct {
 func (ReplyComment) TableName() string {
 	return "reply_comment"
 }
+
+type ReplyCommentResponse struct {
+	ID         uint   `gorm:"primaryKey" json:"id"`
+	Isi        string `json:"isi"`
+	File       string `json:"file"`
+	AuthorName string `json:"author_name"`
+}
