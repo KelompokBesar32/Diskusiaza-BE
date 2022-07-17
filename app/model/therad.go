@@ -24,6 +24,7 @@ func (Therad) TableName() string {
 
 type TheradResponse struct {
 	ID           uint   `json:"id"`
+	UserId       int    `json:"user_id"`
 	Judul        string `json:"judul"`
 	Isi          string `json:"isi"`
 	File         string `json:"file"`
