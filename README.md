@@ -1,6 +1,6 @@
 # Diskusiaza-BE
 ## Postman Documentasi
-https://documenter.getpostman.com/view/15458856/UzBgtpAb
+https://documenter.getpostman.com/view/15458856/UzQvt5FE#intro
 ## Instalation
 - git clone https://github.com/KelompokBesar32/Diskusiaza-BE.git
 - create file .env
