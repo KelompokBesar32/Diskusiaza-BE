@@ -2,7 +2,7 @@
 ## Postman Documentasi
 https://documenter.getpostman.com/view/15458856/UzQvt5FE#intro
 ## Swagger Documentasi
-[https://app.swaggerhub.com/apis/aryafisil/capstone-golang_deploy_final/1.0]
+https://app.swaggerhub.com/apis/aryafisil/capstone-golang_deploy_final/1.0
 ## Instalation
 - git clone https://github.com/KelompokBesar32/Diskusiaza-BE.git
 - create file .env
