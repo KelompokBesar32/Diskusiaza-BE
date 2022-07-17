@@ -14,3 +14,12 @@ type Ruang struct {
 func (Ruang) TableName() string {
 	return "ruang"
 }
+
+type RuangResponse struct {
+	ID                 uint   `gorm:"primaryKey" json:"id"`
+	Judul              string `json:"judul"`
+	Deskripsi          string `json:"deskripsi"`
+	AuthorName         string `json:"author_name"`
+	TotalTheradCreated int    `json:"total_therad_created"`
+	TotalMember        int    `json:"total_member"`
+}

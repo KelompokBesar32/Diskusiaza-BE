@@ -22,7 +22,7 @@ func GetUsersByIdController(c echo.Context) error {
 	id, err := strconv.Atoi(c.Param("user_id"))
 	if err != nil {
 		return c.JSON(http.StatusBadRequest, map[string]interface{}{
-			"message": "invalid parameters therad_id",
+			"message": "invalid parameters user_id",
 		})
 	}
 	res := follow.GetUsersById(id)

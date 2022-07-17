@@ -47,3 +47,48 @@ func GetByIdTheradController(c echo.Context) error {
 		"data": res,
 	})
 }
+
+func GetSearchTheradController(c echo.Context) error {
+	tokenHeader := c.Request().Header.Get("Authorization")
+	token := tokenHeader[len(constants.TokenJwtType):]
+
+	key := c.QueryParam("key")
+	if key == "" {
+		return c.JSON(http.StatusBadRequest, map[string]interface{}{
+			"message": "Key can't empty",
+		})
+	}
+
+	res := therad.GetSearchTheradByJudulAndIsi(key, int(middleware.GetDataFromToken(token)["id"].(float64)))
+	return c.JSON(http.StatusOK, map[string]interface{}{
+		"data": res,
+		"key":  key,
+	})
+}
+
+func GetTheradByKategoriIdController(c echo.Context) error {
+	kategoriId, err := strconv.Atoi(c.Param("kategori_id"))
+	tokenHeader := c.Request().Header.Get("Authorization")
+	token := tokenHeader[len(constants.TokenJwtType):]
+	if err != nil {
+		return c.JSON(http.StatusBadRequest, map[string]interface{}{
+			"message": "invalid parameters kategori_id",
+		})
+	}
+	res := therad.GetTheradByKategoriId(kategoriId, int(middleware.GetDataFromToken(token)["id"].(float64)))
+	kategori := therad.GetKategoriTheradById(kategoriId)
+	return c.JSON(http.StatusOK, map[string]interface{}{
+		"data":          res,
+		"kategori_name": kategori.KategoriName,
+	})
+}
+
+func GetTrendingTheradController(c echo.Context) error {
+	tokenHeader := c.Request().Header.Get("Authorization")
+	token := tokenHeader[len(constants.TokenJwtType):]
+	res := therad.GetTrendingTherad(int(middleware.GetDataFromToken(token)["id"].(float64)))
+	return c.JSON(http.StatusOK, map[string]interface{}{
+		"data":    res,
+		"message": "favorite therad by total_like",
+	})
+}

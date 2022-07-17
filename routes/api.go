@@ -4,6 +4,7 @@ import (
 	auth "Diskusiaza-BE/app/http/controllers"
 	"Diskusiaza-BE/app/http/controllers/follow"
 	profile "Diskusiaza-BE/app/http/controllers/profile"
+	ruang "Diskusiaza-BE/app/http/controllers/ruang"
 	therad "Diskusiaza-BE/app/http/controllers/therad"
 	"Diskusiaza-BE/constants"
 	"net/http"
@@ -51,6 +52,8 @@ func New() *echo.Echo {
 	//---------------------------------------------
 	// user create therad (question)
 	withToken.POST("/user/therad", therad.CreateTheradNormalController)
+	// user create therad in ruang
+	withToken.POST("/user/therad/ruang", therad.CreateTheradInRuangController)
 	// get therad by user
 	withToken.GET("/user/therad", therad.GetListTheradNormalByUsersController)
 	// delete therad
@@ -67,12 +70,14 @@ func New() *echo.Echo {
 	withToken.GET("/therad", therad.GetAllTheradController)
 	// get all therad by user id
 	withToken.GET("/therad/user/:user_id", therad.GetListTheradNormalByUsersIdController)
+	// get search therad
+	withToken.GET("/therad/search", therad.GetSearchTheradController)
+	// get therad by kategori
+	withToken.GET("/therad/kategori/:kategori_id", therad.GetTheradByKategoriIdController)
+	// get favorite therad
+	withToken.GET("/therad/trending", therad.GetTrendingTheradController)
 	// get by id therad
 	withToken.GET("/therad/:therad_id", therad.GetByIdTheradController)
-
-	//-----------------------
-	// LIKE THERAD
-	//----------------------
 	// like therad
 	withToken.POST("/therad/like", therad.LikeTheradController)
 	// unlike therad
@@ -101,6 +106,36 @@ func New() *echo.Echo {
 	withToken.DELETE("/follow", follow.UnFollowedUserController)
 	// remove followers
 	withToken.DELETE("/followers", follow.RemoveFollowersController)
+
+	//-----------------------
+	// RUANG
+	//----------------------
+	// create ruang
+	withToken.POST("/ruang", ruang.CreateRuangController)
+	// delete ruang
+	withToken.DELETE("/ruang/:ruang_id", ruang.DeleteRuangController)
+	// update ruang
+	withToken.PUT("/ruang/:ruang_id", ruang.UpdateRuangController)
+	// get ruang by user
+	withToken.GET("/ruang/user", ruang.GetRuangByUserIdController)
+	// get all ruang
+	withToken.GET("/ruang", ruang.GetAllRuangController)
+	// Get detail ruang by id
+	withToken.GET("/ruang/detail/:ruang_id", ruang.GetRuangByIdController)
+	// search ruang
+	withToken.GET("/ruang/search", ruang.GetSearchRuangController)
+	// get all member in ruang
+	withToken.GET("/ruang/member/:ruang_id", ruang.GetAllMemberInRuangController)
+	// get all therad in ruang
+	withToken.GET("/ruang/therad/:ruang_id", therad.GetAllTheradInRuangController)
+
+	//------------------------
+	// USER JOIN TO RUANG
+	//------------------------
+	// join to ruang
+	withToken.POST("/ruang/join", ruang.CreateMemberRuangController)
+	// leave from ruang
+	withToken.DELETE("/ruang/leave/:ruang_id", ruang.DeleteMemberRuangController)
 
 	return e
 }
